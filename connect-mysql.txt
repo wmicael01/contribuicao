@@ -1,0 +1,38 @@
+<?php
+	$host = "localhost";
+	$dbusername = "root";
+	$dbpassword = "";
+	$dbname = "painel_administrativo";
+
+	// criando conexão com o banco de dados
+	$conexao = new mysqli( $host, $dbusername, $dbpassword, $dbname );
+
+	if (mysqli_connect_error()){
+		die('Erro ao conectar  ( ' . mysqli_connect_errno()  .') ' . mysqli_connect_error());
+	}
+
+
+
+	$username = filter_input(INPUT_POST, 'username');
+	$password = filter_input(INPUT_POST, 'password');
+
+
+	if (!empty($username) && !empty($password)) {
+	   
+		$sql = "INSERT INTO usuarios(user, senha)values('$username','$password')";
+		
+		if ($conexao->query($sql)){
+			echo "Novo trecho inserido com sucesso";
+		}
+
+		$conexao->close();
+		
+	} 
+	else {
+		echo "Usuário e Senha não podem estar vazio!";
+		die();
+	}
+
+?>
+
+
